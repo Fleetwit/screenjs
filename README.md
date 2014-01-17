@@ -4,7 +4,28 @@
 `var screens = new window.screenjs();`
 
 #### Add a new screen ####
-`screens.add($("selector"));`
+`var screen_id = screens.add($("selector"));`
+
+#### Add a new screen, with callbacks ####
+```
+var screen_id = screens.add($("selector"), {
+    onShowStart:    function() {
+		console.log("onShowStart()");
+	},
+	onShowEnd:		function() {
+		console.log("onShowEnd()");
+	},
+	onHideStart:	function() {
+		console.log("onHideStart()");
+	},
+	onHideEnd:		function() {
+		console.log("onHideEnd()");
+	}
+});
+```
+
+#### Show a screen ####
+`screens.show(screen_id);`
 
 
 ## License ##
