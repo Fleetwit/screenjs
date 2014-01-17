@@ -1,0 +1,72 @@
+<style type="text/css">
+	#screen_container {
+		border: 1px solid #000000;
+		margin:			0 auto;
+	}
+	
+	.screen {
+		background-color:	rgba(0,0,0,0.6);
+		vertical-align:		middle;
+		text-align:			justify;
+		color:				#ffffff;
+		font-size:			14px;
+		padding:			30px;
+	}
+</style>
+<div class="panel panel-default" style="max-width:400px;margin:0 auto;">
+	<div class="panel-body">
+		<div id="screen_container" style="width:320px; height: 480px;">
+			
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="btn btn-primary" id="add_screen">Add Screen</div>
+		<select class="form-control" style="width:50%; float:right;" id="screen_list"></select>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	
+	var screenjs;
+	
+	function createLoremScreen() {
+		// Create the screen in the dom
+		var element = $(document.createElement('div'));
+		
+		element.lorem({type: 'words', amount:'100', ptags:true});
+		
+		// Add a class to style it up
+		element.addClass("screen");
+		
+		// Register the screen with screenjs
+		var scr = screenjs.add(element);
+		
+		// Display that screen
+		screenjs.show(scr);
+		
+		// Add the screen to the screen list
+		var option_el	= $(document.createElement('option')).attr('value',scr).text(scr);
+		$("#screen_list").append(option_el);
+		
+		// Select the cuurrent screen in the screen list
+		$("#screen_list").val(scr);
+	}
+	
+	$(function() {
+		
+		screenjs = new window.screenjs($("#screen_container"));
+		
+		// Create a screen
+		createLoremScreen();
+		
+		$("#add_screen").click(function() {
+			createLoremScreen();
+		});
+		
+		$("#screen_list").change(function() {
+			// Display the selected screen
+			screenjs.show($(this).val());
+		});
+	});
+</script>

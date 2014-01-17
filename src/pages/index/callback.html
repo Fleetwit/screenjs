@@ -1,0 +1,122 @@
+<style type="text/css">
+	#screen_container {
+		border: 1px solid #000000;
+		margin:			0 auto;
+	}
+	
+	.screen {
+		background-color:	rgba(0,0,0,0.6);
+		vertical-align:		middle;
+		text-align:			justify;
+		color:				#ffffff;
+		font-size:			14px;
+		padding:			30px;
+	}
+</style>
+<div class="row">
+		<div class="col-md-8">
+			<div class="panel panel-default" style="max-width:400px;margin:0 auto;">
+				<div class="panel-body">
+					<div id="screen_container" style="width:320px; height: 480px;">
+						
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div class="btn btn-primary" id="add_screen">Add Screen</div>
+					<select class="form-control" style="width:50%; float:right;" id="screen_list"></select>
+				</div>
+			</div>
+
+
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Event Log
+				</div>
+				<table class="table table-hover">
+					<tbody style="max-height:500px;overflow:auto;" id="log_container">
+					</tbody>
+				</table>
+				<ul class="list-group">
+				</ul>
+				<div class="panel-footer" style="text-align:right;">
+					<div class="btn btn-danger" id="clear_debug">Clear</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+	
+	var screenjs;
+	
+	
+	function addToLog(msg) {
+		var d 		= new Date();
+		var timestr = d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+" (+"+d.getMilliseconds()+" ms)";
+		var tr 		= $(document.createElement('tr'));
+		tr.append($(document.createElement('td')).html(timestr));
+		tr.append($(document.createElement('td')).html(msg));
+		$("#log_container").append(tr);
+	}
+	
+	function createLoremScreen() {
+		// Create the screen in the dom
+		var element = $(document.createElement('div'));
+		
+		element.lorem({type: 'words', amount:'100', ptags:true});
+		
+		// Add a class to style it up
+		element.addClass("screen");
+		
+		// Register the screen with screenjs
+		var scr;
+		scr = screenjs.add(element, {
+			onShowStart:	function() {
+				addToLog(scr+": onShowStart()");
+			},
+			onShowEnd:		function() {
+				addToLog(scr+": onShowEnd()");
+			},
+			onHideStart:	function() {
+				addToLog(scr+": onHideStart()");
+			},
+			onHideEnd:		function() {
+				addToLog(scr+": onHideEnd()");
+			}
+		});
+		
+		// Display that screen
+		screenjs.show(scr);
+		
+		// Add the screen to the screen list
+		var option_el	= $(document.createElement('option')).attr('value',scr).text(scr);
+		$("#screen_list").append(option_el);
+		
+		// Select the cuurrent screen in the screen list
+		$("#screen_list").val(scr);
+	}
+	
+	$(function() {
+		
+		screenjs = new window.screenjs($("#screen_container"));
+		
+		// Create a screen
+		createLoremScreen();
+		
+		$("#add_screen").click(function() {
+			createLoremScreen();
+		});
+		
+		$("#screen_list").change(function() {
+			// Display the selected screen
+			screenjs.show($(this).val());
+		});
+		
+		$("#clear_debug").click(function() {
+			$("#log_container").empty();
+		});
+	});
+</script>

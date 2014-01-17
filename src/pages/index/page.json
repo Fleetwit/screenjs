@@ -1,0 +1,21 @@
+{
+	"name":			"index",
+	"files":		{
+		"index.html": {
+			"title":	"Screenjs - Demo",
+			"filename":	"index.html"
+		},
+		"callback.html": {
+			"title":	"Screenjs - Demo with callbacks",
+			"filename":	"callback.html"
+		}
+	},
+	"template":		"main.html",
+	"dependencies":	[
+		"jquery",
+		"examples",
+		"bootstrap",
+		"screenjs",
+		"lorem"
+	]
+}
