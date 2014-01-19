@@ -6,10 +6,16 @@
 		this.container		= container;	// Screen container
 		this.current		= false;		// Current screen being displayed
 		this.slideDuration	= 500;
+		
 		// Force the CSS properties
 		this.container.css({
 			position:	"relative",
 			overflow:	"hidden"
+		});
+		
+		// Autodetect the screens
+		this.container.find('[data-screenid]').each(function(idx, item) {
+			scope.add($(item));
 		});
 	};
 	screenjs.prototype.add = function(element, options) {
@@ -18,11 +24,18 @@
 			onShowStart:	function() {},
 			onShowEnd:		function() {},
 			onHideStart:	function() {},
-			onHideEnd:		function() {}
+			onHideEnd:		function() {},
+			onAdd:			function() {}
 		},options);
 		
 		// Create a unique screen ID
-		var sid		= _.uniqueId('screen');
+		if (element.data('screenid')) {
+			var sid		= element.data('screenid');
+		} else {
+			var sid		= _.uniqueId('screen');
+		}
+		
+		options.onAdd(sid);
 		
 		// Register the screen
 		this.screens[sid] = {

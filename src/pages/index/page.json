@@ -8,6 +8,10 @@
 		"callback.html": {
 			"title":	"Screenjs - Demo with callbacks",
 			"filename":	"callback.html"
+		},
+		"autodetect.html": {
+			"title":	"Screenjs - Screen Auto-detection",
+			"filename":	"autodetect.html"
 		}
 	},
 	"template":		"main.html",

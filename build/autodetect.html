@@ -8,7 +8,7 @@
 		<meta name="author" content="Julien Loutre">
 		<link rel="shortcut icon" href="favicon.png">
 		
-		<title>Screenjs - Demo with callbacks</title>
+		<title>Screenjs - Screen Auto-detection</title>
 		
 		<script src="public/jquery/jquery.js"></script>
 <script src="public/bootstrap/./dist/js/bootstrap.js"></script>
@@ -41,8 +41,8 @@
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
 							<li ><a href="index.html">Demo</a></li>
-							<li class="active"><a href="callback.html">Demo with callback</a></li>
-							<li ><a href="autodetect.html">Autodetecting screens</a></li>
+							<li ><a href="callback.html">Demo with callback</a></li>
+							<li class="active"><a href="autodetect.html">Autodetecting screens</a></li>
 							<li><a href="mailto:julien@fleetwit.com">Contact</a></li>
 						</ul>
 					</div><!--/.nav-collapse -->
@@ -71,12 +71,20 @@
 			<div class="panel panel-default" style="max-width:400px;margin:0 auto;">
 				<div class="panel-body">
 					<div id="screen_container" style="width:320px; height: 480px;">
-						
+						<div class="screen" data-screenid="custom-screen-1">
+							<p>Screen #1</p>
+						</div>
+						<div class="screen" data-screenid="custom-screen-2">
+							<p>Screen #2</p>
+						</div>
 					</div>
 				</div>
 				<div class="panel-footer">
 					<div class="btn btn-primary" id="add_screen">Add Screen</div>
-					<select class="form-control" style="width:50%; float:right;" id="screen_list"></select>
+					<select class="form-control" style="width:50%; float:right;" id="screen_list">
+						<option value="custom-screen-1">custom-screen-1</option>
+						<option value="custom-screen-2">custom-screen-2</option>
+					</select>
 				</div>
 			</div>
 
@@ -157,7 +165,8 @@
 		screenjs = new window.screenjs($("#screen_container"));
 		
 		// Create a screen
-		createLoremScreen();
+		//createLoremScreen();
+		screenjs.show('custom-screen-1');
 		
 		$("#add_screen").click(function() {
 			createLoremScreen();
