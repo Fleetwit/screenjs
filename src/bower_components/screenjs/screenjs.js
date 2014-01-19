@@ -92,6 +92,8 @@
 					left:		0-scope.container.width()
 				}, scope.slideDuration, function() {
 					scope.screens[current].options.onHideEnd();
+					// Hide the screen
+					scope.screens[current].element.hide();
 				});
 				// Animate the IN screen
 				scope.screens[sid].options.onShowStart();
